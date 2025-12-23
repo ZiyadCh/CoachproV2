@@ -43,9 +43,6 @@ class User {
         $this->passwordHash = $passwordHash;
     }
 
-    public function __toString() {
-        return $this->nom . " " . $this->prenom;
-    }
 
     // Getters
     public function getId() { return $this->id; }

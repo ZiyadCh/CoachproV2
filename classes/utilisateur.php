@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
 require_once "../config/database.php";
 class user extends connection
 {
@@ -9,15 +6,15 @@ class user extends connection
     protected $nom;
     protected $prenom;
     protected $email;
-    protected $passwordhash;
+    protected $password;
 
-    public function __construct($id, $nom, $prenom, $email, $passwordHash = null)
+    public function __construct($id, $nom, $prenom, $email, $password)
     {
         $this->id = $id;
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->email = $email;
-        $this->passwordHash = $passwordHash;
+        $this->password= $password;
     }
     //getters
     public function getId()
@@ -47,8 +44,8 @@ class user extends connection
     public function setEmail($email){
         $this->email = $email;
     }
-    public function setPass($passwordHash){
-        $this->passwordHash = $passwordHash;
+    public function setPass($password){
+        $this->password= $password;
     }
 
     public function show()
@@ -56,11 +53,10 @@ class user extends connection
         $sql = "select * from users";
         $stmt = $this->connect()->query($sql);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($rows as $row) {
-            echo $row['nom'] . "<br>";
-        }
+        echo $this->id . "</br>";
+        echo $this->nom . "</br>";
+        echo $this->prenom . "</br>";
+        echo $this->email . "</br>";
+        echo $this->password. "</br>";
     }
 }
-$u = new user(1, 1, 1, 1);
-$u->show();
-echo $u->getNom();
