@@ -9,14 +9,14 @@ class user extends connection
     protected $role;
     protected $password;
 
-    public function __construct($id, $nom, $prenom, $email,$role, $password)
+    public function __construct($id, $nom, $prenom, $email, $role, $password)
     {
         $this->id = $id;
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->email = $email;
         $this->role = $role;
-        $this->password= $password;
+        $this->password =   password_hash($password, PASSWORD_DEFAULT) ;
     }
     //getters
     public function getId()
@@ -36,23 +36,37 @@ class user extends connection
         return $this->email;
     }
     //setters
-    public function setNom($nom){
+    public function setNom($nom)
+    {
         $this->nom = $nom;
     }
-    public function setPrenom($prenom){
+    public function setPrenom($prenom)
+    {
         $this->prenom = $prenom;
     }
 
-    public function setEmail($email){
+    public function setEmail($email)
+    {
         $this->email = $email;
     }
-    public function setPass($password){
-        $this->password= $password;
+    public function setPass($password)
+    {
+        $this->password = $password;
     }
-    public function insert(){
-        $sql = "insert into users(nom,prenom,email,role,password) values(". $this->nom .",".$this->prenom.",".$this->email.",".$this->role.", ".$this->password.")";
-        $stmt= $this->connect()->prepare($sql);
-        $stmt->execute();
+    //insert into mysql
+    public function insert()
+    {
+        $sql = "insert into users (nom, prenom, email, role, password) values(:nom, :prenom, :email, :role, :password)";
 
+        $stmt = $this->connect()->prepare($sql);
+
+        $stmt->execute([
+            ':nom'      => $this->nom,
+            ':prenom'   => $this->prenom,
+            ':email'    => $this->email,
+            ':role'     => $this->role,
+            ':password' => $this->password
+        ]);
     }
+
 }
