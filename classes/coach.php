@@ -13,6 +13,7 @@ class coach extends user
         $this->description = $description;
     }
 
+    //getters
     public function getDiscipline()
     {
         return $this->discipline;
@@ -24,6 +25,17 @@ class coach extends user
     public function getDescription()
     {
         return $this->description;
+    }
+
+    //setters
+    public function setDiscipline($discipline){
+        $this->discipline = $discipline;
+    }
+    public function setDescription($description){
+        $this->description = $description;
+    }
+    public function setExperience($experience){
+        $this->experience = $experience;
     }
 }
 ?>

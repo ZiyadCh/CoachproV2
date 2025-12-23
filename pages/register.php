@@ -42,7 +42,7 @@
                 <h3 class="fw-bold">Inscrivez-vous sur <span class="text-sport">CoachPro</span></h3>
                 <p class="text-muted">Créez votre compte pour commencer</p>
             </div>
-            <form action="" method="POST" id="registerForm">
+            <form action="./register.coach.process.php" method="POST" id="registerForm">
                 <div class="mb-3">
                     <label for="nom" class="form-label">Nom complet</label>
                     <input type="text" class="form-control" id="nom" name="nom" placeholder="Votre nom" required>
