@@ -105,7 +105,7 @@ class user extends connection
 
         if ($emailCheck === $emails) {
             //password validaiton
-            if ($passCheck == $pass) {
+            if ($passCheck === password_hash($pass, PASSWORD_DEFAULT)) {
                 //check role
                 if ($role == 'sportif') {
                     //sesion
@@ -121,8 +121,13 @@ class user extends connection
                     exit();
                 }
             } else {
-                echo "not";
+                throw new Exception("mod de pass incorrect");
+                    header("location: ../pages/dashboard.coach.php");
             }
+        }
+        else{
+                throw new Exception("Email n'existe pas");
+                    header("location: ../pages/dashboard.coach.php");
         }
     }
 }
