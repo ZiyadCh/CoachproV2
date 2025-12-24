@@ -64,25 +64,20 @@ class user extends connection
     //insert into mysql
     public function insert()
     {
-        $db = connection::getInstance()->getConnection();
-            $sql = "insert into users (nom, prenom, email, role, password) values(:nom, :prenom, :email, :role, :password)";
-    
-            $stmt = $this->connect()->prepare($sql);
-    
-            $stmt->execute([
-                ':nom' => $this->nom,
-                ':prenom' => $this->prenom,
-                ':email' => $this->email,
-                ':role' => $this->role,
-                ':password' => $this->password
-            ]);
-                    $this->id = $db->lastInsertId(); 
+        $sql = "insert into users (nom, prenom, email, role, password) values(:nom, :prenom, :email, :role, :password)";
+
+        $stmt = $this->connect()->prepare($sql);
+
+        $stmt->execute([
+            ':nom' => $this->nom,
+            ':prenom' => $this->prenom,
+            ':email' => $this->email,
+            ':role' => $this->role,
+            ':password' => $this->password
+        ]);
     }
     public function login(){
-         $user = $this->getEmail();
-
-
-        return $user; 
- 
+      $sql = "select email from users where email = :email";  
+      
     }
 }
