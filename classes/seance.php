@@ -46,11 +46,11 @@ class seance {
     public function setHeure($heure){
         $this->heure = $heure;
     }
-    public function setCid($coach_id){
-        $this->coach_id = $coach_id;
+    public function setDuree($duree){
+        $this->duree = $duree;
     }
-    public function setCid($coach_id){
-        $this->coach_id = $coach_id;
+    public function setStatut($statut){
+        $this->statut = $statut;
     }
 }
 ?>
