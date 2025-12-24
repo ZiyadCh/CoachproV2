@@ -64,6 +64,7 @@ class user extends connection
     //insert into mysql
     public function insert()
     {
+        $pdo = $this->connect();
         $sql = "select * from users where email = :email";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([
@@ -76,7 +77,7 @@ class user extends connection
         }
         $sql = "insert into users (nom, prenom, email, role, password) values(:nom, :prenom, :email, :role, :password)";
 
-        $stmt = $this->connect()->prepare($sql);
+        $stmt = $pdo->prepare($sql);
 
         $stmt->execute([
             ':nom' => $this->nom,
@@ -85,7 +86,16 @@ class user extends connection
             ':role' => $this->role,
             ':password' => $this->password
         ]);
+
+        $userId = $pdo->lastInsertId(); 
+    if (!$userId) {
+        throw new Exception("User insert failed");
     }
+
+    return (int)$userId; 
+     
+    }
+    //login
     public function login($emailCheck, $passCheck)
     {
         $sql = "select * from users where email = :email";
@@ -125,4 +135,6 @@ class user extends connection
             }
         }
     }
+
 }
+
