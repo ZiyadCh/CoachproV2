@@ -64,6 +64,16 @@ class user extends connection
     //insert into mysql
     public function insert()
     {
+        $sql = "select * from users where email = :email";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([
+            ':email' => $this->email
+        ]);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if ($results) {
+            header("location: ../pages/register.php");
+            exit();
+        }
         $sql = "insert into users (nom, prenom, email, role, password) values(:nom, :prenom, :email, :role, :password)";
 
         $stmt = $this->connect()->prepare($sql);
@@ -90,22 +100,29 @@ class user extends connection
             $role = $row['role'];
             $nom = $row['nom'];
             $prenom = $row['prenom'];
+            $pass = $row['password'];
         }
+
         if ($emailCheck === $emails) {
-            //check role
-            if ($role == 'sportif') {
-            header("location: ../pages/dashboard.sportif.php");
-            exit();
+            //password validaiton
+            if ($passCheck == $pass) {
+                //check role
+                if ($role == 'sportif') {
+                    //sesion
+                    $_SESSION['nom'] = $nom;
+                    $_SESSION['prenom'] = $prenom;
+                    header("location: ../pages/dashboard.sportif.php");
+                    exit();
+                } elseif ($role == 'coach') {
+                    //sesion
+                    $_SESSION['nom'] = $nom;
+                    $_SESSION['prenom'] = $prenom;
+                    header("location: ../pages/dashboard.coach.php");
+                    exit();
+                }
+            } else {
+                echo "not";
             }
-            elseif ($role == 'coach') {
-            header("location: ../pages/dashboard.coach.php");
-            exit();
-            }
-            //sesion
-            $_SESSION['nom'] = $nom;
-            $_SESSION['prenom'] = $prenom;
-        } else {
-            echo "not";
         }
     }
 }
