@@ -76,8 +76,36 @@ class user extends connection
             ':password' => $this->password
         ]);
     }
-    public function login(){
-      $sql = "select email from users where email = :email";  
-      
+    public function login($emailCheck, $passCheck)
+    {
+        $sql = "select * from users where email = :email";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([
+            ':email' => $emailCheck
+        ]);
+
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($results as $row) {
+            $emails = $row['email'];
+            $role = $row['role'];
+            $nom = $row['nom'];
+            $prenom = $row['prenom'];
+        }
+        if ($emailCheck === $emails) {
+            //check role
+            if ($role == 'sportif') {
+            header("location: ../pages/dashboard.sportif.php");
+            exit();
+            }
+            elseif ($role == 'coach') {
+            header("location: ../pages/dashboard.coach.php");
+            exit();
+            }
+            //sesion
+            $_SESSION['nom'] = $nom;
+            $_SESSION['prenom'] = $prenom;
+        } else {
+            echo "not";
+        }
     }
 }

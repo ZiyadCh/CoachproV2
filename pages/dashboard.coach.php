@@ -1,8 +1,9 @@
 <?php
 session_start();
-if (!$_SESSION) {
-    header("location: ./login.php");
-}
+// if (!$_SESSION) {
+//     header("location: ./login.php");
+//     exit();
+// }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
