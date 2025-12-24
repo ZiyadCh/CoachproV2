@@ -16,7 +16,7 @@ class user extends connection
         $this->prenom = $prenom;
         $this->email = $email;
         $this->role = $role;
-        $this->password =   password_hash($password, PASSWORD_DEFAULT) ;
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
     //getters
     public function getId()
@@ -31,6 +31,10 @@ class user extends connection
     {
         return $this->prenom;
     }
+    public function getRole()
+    {
+        return $this->role;
+    }
     public function getEmail()
     {
         return $this->email;
@@ -43,6 +47,10 @@ class user extends connection
     public function setPrenom($prenom)
     {
         $this->prenom = $prenom;
+    }
+    public function setRole($role)
+    {
+        $this->role = $role;
     }
 
     public function setEmail($email)
@@ -61,12 +69,15 @@ class user extends connection
         $stmt = $this->connect()->prepare($sql);
 
         $stmt->execute([
-            ':nom'      => $this->nom,
-            ':prenom'   => $this->prenom,
-            ':email'    => $this->email,
-            ':role'     => $this->role,
+            ':nom' => $this->nom,
+            ':prenom' => $this->prenom,
+            ':email' => $this->email,
+            ':role' => $this->role,
             ':password' => $this->password
         ]);
     }
-
+    public function login(){
+      $sql = "select email from users where email = :email";  
+      
+    }
 }

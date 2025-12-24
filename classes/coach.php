@@ -1,5 +1,5 @@
 <?php 
-include './classes/utilisateur.php';
+require_once '../classes/utilisateur.php';
 class coach extends user
 {
     protected $discipline;
@@ -36,6 +36,18 @@ class coach extends user
     }
     public function setExperience($experience){
         $this->experience = $experience;
+    }
+ public function insert()
+    {
+        $sql = "insert into coachs (discipline,experience,description) values(:dis,:exp,:desc)";
+
+        $stmt = $this->connect()->prepare($sql);
+
+        $stmt->execute([
+            ':dis' => $this->discipline,
+            ':exp' => $this->experience,
+            ':desc' => $this->description
+        ]);
     }
 }
 ?>
