@@ -116,13 +116,21 @@ class seance extends connection
             ':coach_id' => $this->coach_id
         ]);
     }
-    public function show()
+    public function showDisponible()
     {
         $pdo = $this->connect();
-        $sql = "select * from seances";
+        $sql = "select * from seances  left join users on seances.coach_id = users.id where statut = 'disponible'";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_DEFAULT);
-            return $result;
+        foreach ($result as $d) {
+            echo " 
+                                            <tr>
+                                        <td>" . $d['nom'] . "</td>
+                                        <td>" . $d['date_seance'] . "</td>
+                                        <td>" . $d['heure'] . "</td>
+                                        <td>" . $d['duree'] . "</td>
+                                    </tr>";
+        }
     }
 }

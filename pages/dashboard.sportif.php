@@ -92,26 +92,19 @@ require_once "../classes/seance.php";
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
                         <thead class="table-success">
-                            <tr>
-                                <!-- php -->
-                                <?php
-                                $s = new seance(0, 0, 0, 0, 0);
-                                $data = $s->show();
-                                foreach ($data as $d) {
-                                    echo " 
-                                            <tr>
-                                        <td>".$d['coach_id']."</td>
-                                        <td>".$d['date_seance']."</td>
-                                        <td>".$d['heure']."</td>
-                                        <td>".$d['duree']."</td>
-                                        <td><span class='badge-disponible'>".$d['statut']."</span></td>
-                                    </tr>";
-                                }
-                                ?></tr>
+                              <tr>
+                                        <th>Coach</th>
+                                        <th>Date</th>
+                                        <th>Heure</th>
+                                        <th>Durée</th>
+                                    </tr>
                         </thead>
                         <tbody>
-                            <tr></tr>
-                            <tr></tr>
+                              <!-- php -->
+
+                                <?php
+                                $s = new seance(0, 0, 0, 0, 0);
+                                $s->showDisponible();?>
                         </tbody>
                     </table>
                 </div>
