@@ -4,6 +4,9 @@ if (!$_SESSION) {
     header("location: ./login.php");
     exit();
 }
+require_once "../classes/seance.php";
+$seance = new seance(0,0,0,0,0);
+$_SESSION['id'];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -41,6 +44,9 @@ if (!$_SESSION) {
         .table-actions .btn {
             font-size: 0.9rem;
         }
+        #reser{
+            display: none;
+        }
    </style>
 </head>
 
@@ -51,8 +57,7 @@ if (!$_SESSION) {
                 <h4 class="text-white text-center mb-4">Coach Dashboard</h4>
                 <ul class="nav flex-column">
                     <li class="nav-item"><a href="#" class="nav-link active"><i class="fas fa-home me-2"></i>Dashboard</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-user me-2"></i>Mon Profil</a></li>
-                    <li class="nav-item mt-5"><a href="/auth/logout.php" class="nav-link"><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</a></li>
+                    <li class="nav-item mt-5"><a href="logout.php" class="nav-link"><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</a></li>
                 </ul>
             </div>
             <div class="col-md-9 col-lg-10 p-4">
@@ -74,12 +79,10 @@ if (!$_SESSION) {
                                         <th>Heure</th>
                                         <th>Durée</th>
                                         <th>Statut</th>
-                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        </tr>
+                                  <?php $seance->showDisponible(); ?>
                                 </tbody>
                             </table>
                         </div>
@@ -95,23 +98,17 @@ if (!$_SESSION) {
                                 <thead class="table-success">
                                     <tr>
                                         <th>Sportif</th>
-                                        <th>Séance (Date & Heure)</th>
                                         <th>Date de réservation</th>
-                                        <th>Statut</th>
-                                        <th>Actions</th>
+                                        <th>Heure</th>
+                                        <th>Durée</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Ahmed Benali</td>
-                                        <td>2025-12-26 à 14:30 (60 min)</td>
-                                        <td>2025-12-24</td>
-                                        <td><span class="badge badge-en-attente">En attente</span></td>
-                                        <td>
-                                            <button class="btn btn-success btn-sm">Accepter</button>
-                                            <button class="btn btn-danger btn-sm">Refuser</button>
-                                        </td>
-                                    </tr>
+                                    
+                                    <?php 
+                                    $seance->showReservee($_SESSION['id']);
+                                    echo $_SESSION['id'];
+                                    ?>
                                 </tbody>
                             </table>
                         </div>

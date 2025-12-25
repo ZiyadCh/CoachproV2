@@ -131,14 +131,29 @@ class seance extends connection
                 <td>" . $d['heure'] . "</td>
                 <td>" . $d['duree'] . "</td>
                 <td> <form action='../pages/reserver.php' method='POST'>
-                <input type='hidden' name='seance_id' value=".$d['id'].">
+                <input type='hidden' name='seance_id' value=" . $d['id'] . ">
 
-                <button type='submit'>Reserver</button>
+                <button type='submit' id='reser'>Reserver</button>
                 </form> </td>
              </tr>";
         }
-        
-        
+    }
+    public function showReservee($coach_id)
+    {
+        $pdo = $this->connect();
+        $sql = "select seances.*,nom from seances left join users on seances.coach_id = users.id where statut = 'reservee' and coach_id = :coach";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':coach' => $coach_id]);
+        $result = $stmt->fetchAll(PDO::FETCH_DEFAULT);
+        foreach ($result as $d) {
+            echo " 
+              <tr>
+                <td>" . $d['nom'] . "</td>
+                <td>" . $d['date_seance'] . "</td>
+                <td>" . $d['heure'] . "</td>
+                <td>" . $d['duree'] . "</td>
+             </tr>";
+        }
     }
     //modifier
     public function modifierStatut($seance_id)
@@ -152,5 +167,4 @@ class seance extends connection
             ':id'   => $seance_id
         ]);
     }
-    
 }
