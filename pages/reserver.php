@@ -6,6 +6,9 @@ error_reporting(E_ALL);
 require_once "../classes/reservation.php";
 
 $reservation = new reservation(1,1,1);
-$reservation->getSeanceId();
+$seance_id = $_POST['seance_id'];
+echo $seance_id;
+$reservation->insert($seance_id,$_SESSION['id']);
+
 
 ?>

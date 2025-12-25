@@ -1,5 +1,6 @@
 <?php
 require_once "../config/database.php";
+require_once "../classes/seance.php";
 class reservation extends connection{
     protected $id;
     protected $seance_id;
@@ -12,25 +13,16 @@ class reservation extends connection{
         $this->sportif_id= $sportif_id;
         $this->date_reservation= $date_reservation;
     }
-    public function getSeanceId(){
+    public function insert($seance_id,$sportif_id){
       $pdo = $this->connect();  
-      $sql = "select seance_id from reservations where id = :id";
+      $sql = "insert into reservations(seance_id,sportif_id) values(:seance_id,:sportif_id)";
       $stmt = $pdo->prepare($sql);
       $stmt->execute([
-        ":id" => $this->id
+        ":seance_id" => $seance_id,
+        ":sportif_id" => $sportif_id
       ]);
-      $result = $stmt->fetch(PDO::FETCH_DEFAULT);
-      echo $result['seance_id'];
-    }
-    public function insert(){
-      $pdo = $this->connect();  
-      $sql = "insert into seances(seance_id,sportif_id) values(:seance_id,sportif_id)";
-      $stmt = $pdo->prepare($sql);
-      $stmt->execute([
-        ":seance_id" => $this->id,
-        ":sportif_id" => $this->id
-      ]);
- 
+      $seance = new seance(0,0,0,0,0);
+      $seance->modifierStatut($seance_id);
     }
 }
 ?>

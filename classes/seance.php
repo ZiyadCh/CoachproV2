@@ -119,7 +119,7 @@ class seance extends connection
     public function showDisponible()
     {
         $pdo = $this->connect();
-        $sql = "select * from seances  left join users on seances.coach_id = users.id where statut = 'disponible'";
+        $sql = " select seances.*,nom from seances left join users on seances.coach_id = users.id where statut = 'disponible'";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_DEFAULT);
@@ -130,9 +130,27 @@ class seance extends connection
                 <td>" . $d['date_seance'] . "</td>
                 <td>" . $d['heure'] . "</td>
                 <td>" . $d['duree'] . "</td>
-                <td> <form action='../pages/reserver.php'><button type='submit'>Reserver</button></form> </td>
+                <td> <form action='../pages/reserver.php' method='POST'>
+                <input type='hidden' name='seance_id' value=".$d['id'].">
+
+                <button type='submit'>Reserver</button>
+                </form> </td>
              </tr>";
         }
+        
+        
     }
+    //modifier
+    public function modifierStatut($seance_id)
+    {
+        $pdo = $this->connect();
 
+        $sql = "update seances set statut = 'reservee' where id =:id";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':id'   => $seance_id
+        ]);
+    }
+    
 }
