@@ -4,7 +4,6 @@ if (!$_SESSION) {
     header("location: ./login.php");
     exit();
 }
-echo $_SESSION['id'];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -12,7 +11,6 @@ echo $_SESSION['id'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Coach - Plateforme Sportive</title>
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -37,12 +35,16 @@ echo $_SESSION['id'];
         .table-actions .btn {
             font-size: 0.9rem;
         }
+        .badge-disponible { background-color: #28a745; }
+        .badge-reservee { background-color: #ffc107; color: black; }
+        .badge-annulee { background-color: #dc3545; }
+        .badge-en-attente { background-color: #fd7e14; }
+        .badge-confirmee { background-color: #198754; }
     </style>
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
-            <!-- Sidebar -->
             <div class="col-md-3 col-lg-2 sidebar p-3">
                 <h4 class="text-white text-center mb-4">Coach Dashboard</h4>
                 <ul class="nav flex-column">
@@ -51,11 +53,8 @@ echo $_SESSION['id'];
                     <li class="nav-item mt-5"><a href="/auth/logout.php" class="nav-link"><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</a></li>
                 </ul>
             </div>
-
-            <!-- Contenu principal -->
             <div class="col-md-9 col-lg-10 p-4">
                 <h2 class="mb-4">Bienvenue <?php echo htmlspecialchars($_SESSION["prenom"] . " " . $_SESSION["nom"]); ?></h2>
-
                 <div class="row mb-4">
                     <div class="col-md-3">
                         <div class="card stat-card shadow">
@@ -90,13 +89,44 @@ echo $_SESSION['id'];
                         </div>
                     </div>
                 </div>
-
-                <div class="card shadow">
-                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Gestion des Séances</h5>
+                <div class="card shadow mb-5">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Mes Séances</h5>
                         <a href="./create.seance.php" class="btn btn-light btn-sm">
-                            <i class="fas fa-plus me-2"></i>Ajouter une seance
+                            <i class="fas fa-plus me-2"></i>Ajouter une séance
                         </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-primary">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Heure</th>
+                                        <th>Durée</th>
+                                        <th>Statut</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2025-12-26</td>
+                                        <td>14:30</td>
+                                        <td>60 min</td>
+                                        <td><span class="badge badge-disponible">Disponible</span></td>
+                                        <td>
+                                            <a href="modifier_seance.php?id=1" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                            <a href="supprimer_seance.php?id=1" class="btn btn-danger btn-sm" onclick="return confirm('Supprimer cette séance ?')"><i class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">Réservations Reçues</h5>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -104,13 +134,22 @@ echo $_SESSION['id'];
                                 <thead class="table-success">
                                     <tr>
                                         <th>Sportif</th>
-                                        <th>Date & Heure</th>
+                                        <th>Séance (Date & Heure)</th>
+                                        <th>Date de réservation</th>
                                         <th>Statut</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <td>Ahmed Benali</td>
+                                        <td>2025-12-26 à 14:30 (60 min)</td>
+                                        <td>2025-12-24</td>
+                                        <td><span class="badge badge-en-attente">En attente</span></td>
+                                        <td>
+                                            <button class="btn btn-success btn-sm">Accepter</button>
+                                            <button class="btn btn-danger btn-sm">Refuser</button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -120,7 +159,6 @@ echo $_SESSION['id'];
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

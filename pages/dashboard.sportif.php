@@ -4,7 +4,7 @@ if (!$_SESSION) {
     header("location: ./login.php");
     exit();
 }
-
+require_once "../classes/seance.php";
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -88,11 +88,26 @@ if (!$_SESSION) {
 
                 <div class="row g-4"></div>
 
-                <h3 class="mt-5 mb-4">Réservations</h3>
+                <h3 class="mt-5 mb-4">Seances</h3>
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
                         <thead class="table-success">
-                            <tr></tr>
+                            <tr>
+                                <!-- php -->
+                                <?php
+                                $s = new seance(0, 0, 0, 0, 0);
+                                $data = $s->show();
+                                foreach ($data as $d) {
+                                    echo " 
+                                            <tr>
+                                        <td>".$d['coach_id']."</td>
+                                        <td>".$d['date_seance']."</td>
+                                        <td>".$d['heure']."</td>
+                                        <td>".$d['duree']."</td>
+                                        <td><span class='badge-disponible'>".$d['statut']."</span></td>
+                                    </tr>";
+                                }
+                                ?></tr>
                         </thead>
                         <tbody>
                             <tr></tr>

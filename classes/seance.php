@@ -2,6 +2,7 @@
 require_once "../config/database.php";
 class seance extends connection
 {
+    protected $id;
     protected $coach_id;
     protected $date;
     protected $heure;
@@ -18,6 +19,10 @@ class seance extends connection
     }
 
     //getters
+    public function getId()
+    {
+        return $this->id;
+    }
     public function getCid()
     {
         return $this->coach_id;
@@ -75,8 +80,8 @@ class seance extends connection
             ':duree'    => $this->duree,
             ':statut'   => $this->statut
         ]);
-
     }
+    //modifier
     public function modifier()
     {
         $pdo = $this->connect();
@@ -96,5 +101,28 @@ class seance extends connection
             ':duree'    => $this->duree,
             ':statut'   => $this->statut
         ]);
+    }
+    //supprimer
+    public function delete()
+    {
+        $pdo = $this->connect();
+
+        $sql = "delete from seances
+                where id = :id AND coach_id = :coach_id";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':id'       => $this->id,
+            ':coach_id' => $this->coach_id
+        ]);
+    }
+    public function show()
+    {
+        $pdo = $this->connect();
+        $sql = "select * from seances";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_DEFAULT);
+            return $result;
     }
 }

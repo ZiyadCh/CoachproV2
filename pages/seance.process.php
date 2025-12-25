@@ -15,8 +15,9 @@ $duree  = $_POST['duree'];
 $statut = 'disponible';
 
 
-    $seance = new seance($coach_id,$date,$heure,$duree,$statut);
+$seance = new seance($coach_id, $date, $heure, $duree, $statut);
 
-    $seance->creer();
+$seance->creer();
 
-    
+header("location: dashboard.coach.php");
+exit();

@@ -106,6 +106,7 @@ class user extends connection
 
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($results as $row) {
+            $id = $row['id'];
             $emails = $row['email'];
             $role = $row['role'];
             $nom = $row['nom'];
@@ -119,12 +120,14 @@ class user extends connection
                 //check role
                 if ($role == 'sportif') {
                     //sesion
+                   $_SESSION['id'] = $id; 
                     $_SESSION['nom'] = $nom;
                     $_SESSION['prenom'] = $prenom;
                     header("location: ../pages/dashboard.sportif.php");
                     exit();
                 } elseif ($role == 'coach') {
                     //sesion
+                   $_SESSION['id'] = $id; 
                     $_SESSION['nom'] = $nom;
                     $_SESSION['prenom'] = $prenom;
                     header("location: ../pages/dashboard.coach.php");
