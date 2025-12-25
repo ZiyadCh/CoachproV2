@@ -4,10 +4,10 @@ if (!$_SESSION) {
     header("location: ./login.php");
     exit();
 }
+echo $_SESSION['id'];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,32 +19,26 @@ if (!$_SESSION) {
         body {
             background-color: #f8f9fa;
         }
-
         .sidebar {
             min-height: 100vh;
             background-color: #1a3c34;
         }
-
         .sidebar .nav-link {
             color: #fff;
         }
-
         .sidebar .nav-link:hover,
         .sidebar .nav-link.active {
             background-color: #2d5f56;
         }
-
         .stat-card {
             background: linear-gradient(135deg, #28a745, #20c997);
             color: white;
         }
-
-        .table-actions btn {
+        .table-actions .btn {
             font-size: 0.9rem;
         }
     </style>
 </head>
-
 <body>
     <div class="container-fluid">
         <div class="row">
@@ -58,14 +52,15 @@ if (!$_SESSION) {
                 </ul>
             </div>
 
+            <!-- Contenu principal -->
             <div class="col-md-9 col-lg-10 p-4">
-                <h2 class="mb-4"><?php echo $_SESSION["prenom"];?> <?php echo $_SESSION["nom"] ?> </h2>
+                <h2 class="mb-4">Bienvenue <?php echo htmlspecialchars($_SESSION["prenom"] . " " . $_SESSION["nom"]); ?></h2>
 
                 <div class="row mb-4">
                     <div class="col-md-3">
                         <div class="card stat-card shadow">
                             <div class="card-body text-center">
-						        <h5>Demande en attente</h5>
+                                <h5>Demande en attente</h5>
                                 <h3>5</h3>
                             </div>
                         </div>
@@ -96,10 +91,12 @@ if (!$_SESSION) {
                     </div>
                 </div>
 
-                <!-- Table des réservations -->
                 <div class="card shadow">
-                    <div class="card-header bg-success text-white">
-                        <h5 class="mb-0">Gestion des Réservations</h5>
+                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Gestion des Séances</h5>
+                        <a href="./create.seance.php" class="btn btn-light btn-sm">
+                            <i class="fas fa-plus me-2"></i>Ajouter une seance
+                        </a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -113,7 +110,9 @@ if (!$_SESSION) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                                                </tbody>
+                                    <tr>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -124,5 +123,4 @@ if (!$_SESSION) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

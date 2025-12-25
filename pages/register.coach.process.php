@@ -8,6 +8,7 @@ $user = new user(null,$_POST['nom'],$_POST['prenom'],$_POST['email'],'coach',$_P
 $userId= $user->insert();
 $coach = new coach($_POST['discipline'], $_POST['anneExp'], $_POST['bio']);
 $coach->insertCoach($userId);
+$_SESSION['id'] = $userId;
 header("location: ../pages/dashboard.coach.php");
  exit();
 ?>
