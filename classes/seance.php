@@ -125,12 +125,14 @@ class seance extends connection
         $result = $stmt->fetchAll(PDO::FETCH_DEFAULT);
         foreach ($result as $d) {
             echo " 
-                                            <tr>
-                                        <td>" . $d['nom'] . "</td>
-                                        <td>" . $d['date_seance'] . "</td>
-                                        <td>" . $d['heure'] . "</td>
-                                        <td>" . $d['duree'] . "</td>
-                                    </tr>";
+              <tr>
+                <td>" . $d['nom'] . "</td>
+                <td>" . $d['date_seance'] . "</td>
+                <td>" . $d['heure'] . "</td>
+                <td>" . $d['duree'] . "</td>
+                <td> <form action='../pages/reserver.php'><button type='submit'>Reserver</button></form> </td>
+             </tr>";
         }
     }
+
 }
