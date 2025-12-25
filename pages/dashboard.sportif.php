@@ -77,7 +77,6 @@ require_once "../classes/seance.php";
             <div class="col-md-3 col-lg-2 sidebar p-3">
                 <ul class="nav flex-column mt-4">
                     <li class="nav-item"><a href="#" class="nav-link active"><i class="fas fa-home me-2"></i>Accueil</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-user me-2"></i>Mon Profil</a></li>
                     <li class="nav-item mt-5"><a href="/auth/logout.php" class="nav-link"><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</a></li>
                 </ul>
             </div>
@@ -93,16 +92,17 @@ require_once "../classes/seance.php";
                     <table class="table table-hover align-middle">
                         <thead class="table-success">
                               <tr>
-                                        <th>Coach</th>
-                                        <th>Date</th>
-                                        <th>Heure</th>
-                                        <th>Durée</th>
-                                    </tr>
+                                  <th>Coach</th>
+                                  <th>Date</th>
+                                  <th>Heure</th>
+                                  <th>Durée</th>
+                              </tr>
                         </thead>
                         <tbody>
                               <!-- php -->
-
                                 <?php
+                                echo $_SESSION['id'];
+
                                 $s = new seance(0, 0, 0, 0, 0);
                                 $s->showDisponible();?>
                         </tbody>

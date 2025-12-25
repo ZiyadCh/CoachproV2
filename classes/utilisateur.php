@@ -116,7 +116,7 @@ class user extends connection
 
         if ($emailCheck === $emails) {
             //password validaiton
-            if ($passCheck == $pass) {
+            if (password_verify($passCheck,$pass) ) {
                 //check role
                 if ($role == 'sportif') {
                     //sesion

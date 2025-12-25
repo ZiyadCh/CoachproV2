@@ -22,5 +22,15 @@ class reservation extends connection{
       $result = $stmt->fetch(PDO::FETCH_DEFAULT);
       echo $result['seance_id'];
     }
+    public function insert(){
+      $pdo = $this->connect();  
+      $sql = "insert into seances(seance_id,sportif_id) values(:seance_id,sportif_id)";
+      $stmt = $pdo->prepare($sql);
+      $stmt->execute([
+        ":seance_id" => $this->id,
+        ":sportif_id" => $this->id
+      ]);
+ 
+    }
 }
 ?>
