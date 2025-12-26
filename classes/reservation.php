@@ -24,5 +24,22 @@ class reservation extends connection{
       $seance = new seance(0,0,0,0,0);
       $seance->modifierStatut($seance_id);
     }
+    public function showReservation($sportif_id)
+    {
+        $pdo = $this->connect();
+        $sql = "select reservations.*,seances.*,nom,prenom from seances left join users on seances.coach_id  = users.id left join reservations on seances.id = seance_id where sportif_id = :sportif;";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([':sportif' => $sportif_id]);
+        $result = $stmt->fetchAll(PDO::FETCH_DEFAULT);
+        foreach ($result as $d) {
+            echo " 
+              <tr>
+                <td>" . $d['nom'] . "</td>
+                <td>" . $d['date_seance'] . "</td>
+                <td>" . $d['heure'] . "</td>
+                <td>" . $d['duree'] . "</td>
+             </tr>";
+        }
+    }
 }
 ?>

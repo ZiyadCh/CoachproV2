@@ -5,6 +5,7 @@ if (!$_SESSION) {
     exit();
 }
 require_once "../classes/seance.php";
+require_once "../classes/reservation.php";
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -22,7 +23,9 @@ require_once "../classes/seance.php";
             background-color: #f8f9fa;
             min-height: 100vh;
         }
-
+    #supp{
+    display: none;
+}
         .navbar {
             background: linear-gradient(135deg, #28a745, #20c997);
         }
@@ -83,7 +86,7 @@ require_once "../classes/seance.php";
 
             <!-- Main Content -->
             <div class="col-md-9 col-lg-10 p-4">
-                <h2 class="mb-4">Découvrir les Coachs</h2>
+                <h2 class="mb-4"><?php echo $_SESSION['nom'] ?></h2>
 
                 <div class="row g-4"></div>
 
@@ -102,7 +105,26 @@ require_once "../classes/seance.php";
                               <!-- php -->
                                 <?php
                                 $s = new seance(0, 0, 0, 0, 0);
-                                $s->showDisponible();?>
+                                $s->showDisponibleSportif();?>
+                        </tbody>
+                    </table>
+<div class="card-header bg-success text-white">
+                        <h5 class="mb-0">Mes Seances Reservees</h5>
+                    </div>
+<table class="table table-hover align-middle">
+                        <thead class="table-success">
+                              <tr>
+                                  <th>Coach</th>
+                                  <th>Date</th>
+                                  <th>Heure</th>
+                                  <th>Durée</th>
+                              </tr>
+                        </thead>
+                        <tbody>
+                              <!-- php -->
+                                <?php
+                                $s = new reservation(0, 0, 0);
+                                $s->showReservation($_SESSION['id']);?>
                         </tbody>
                     </table>
                 </div>

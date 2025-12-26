@@ -116,15 +116,18 @@ class seance extends connection
             ':coach_id' => $this->coach_id
         ]);
     }
-    public function showDisponible()
+
+    //coach side
+    public function showDisponibleCoach()
     {
         $pdo = $this->connect();
-        $sql = " select seances.*,nom from seances left join users on seances.coach_id = users.id where statut = 'disponible'";
+        $sql = " select seances.*,nom from seances left join users on seances.coach_id = users.id where statut = 'disponible' and coach_id = :coach";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute();
+        $stmt->execute([':coach' => $_SESSION['id']]);
         $result = $stmt->fetchAll(PDO::FETCH_DEFAULT);
         foreach ($result as $d) {
-            echo " 
+            echo "
+             
               <tr>
                 <td>" . $d['nom'] . "</td>
                 <td>" . $d['date_seance'] . "</td>
@@ -132,16 +135,48 @@ class seance extends connection
                 <td>" . $d['duree'] . "</td>
                 <td> <form action='../pages/reserver.php' method='POST'>
                 <input type='hidden' name='seance_id' value=" . $d['id'] . ">
-
                 <button type='submit' id='reser'>Reserver</button>
-                </form> </td>
+                </form>
+                <form action='../pages/supp.seance.php' method='POST'>
+                <input type='hidden' name='seance_id' value=" . $d['id'] . ">
+                <button type='submit' id='supp'>Supprimer</button>
+                </form> 
+                </td>
+             </tr>";
+        }
+    }
+    //sportif side
+    public function showDisponibleSportif()
+    {
+        $pdo = $this->connect();
+        $sql = " select seances.*,nom from seances left join users on seances.coach_id = users.id where statut = 'disponible' ";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_DEFAULT);
+        foreach ($result as $d) {
+            echo "
+             
+              <tr>
+                <td>" . $d['nom'] . "</td>
+                <td>" . $d['date_seance'] . "</td>
+                <td>" . $d['heure'] . "</td>
+                <td>" . $d['duree'] . "</td>
+                <td> <form action='../pages/reserver.php' method='POST'>
+                <input type='hidden' name='seance_id' value=" . $d['id'] . ">
+                <button type='submit' id='reser'>Reserver</button>
+                </form>
+                <form action='../pages/supp.seance.php' method='POST'>
+                <input type='hidden' name='seance_id' value=" . $d['id'] . ">
+                <button type='submit' id='supp'>Supprimer</button>
+                </form> 
+                </td>
              </tr>";
         }
     }
     public function showReservee($coach_id)
     {
         $pdo = $this->connect();
-        $sql = "select seances.*,nom from seances left join users on seances.coach_id = users.id where statut = 'reservee' and coach_id = :coach";
+        $sql = "select reservations.*,seances.*,nom from reservations left join users on reservations.sportif_id  = users.id left join seances on seances.id = seance_id  where statut = 'reservee' and coach_id = :coach";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':coach' => $coach_id]);
         $result = $stmt->fetchAll(PDO::FETCH_DEFAULT);

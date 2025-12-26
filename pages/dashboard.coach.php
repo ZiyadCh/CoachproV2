@@ -6,7 +6,6 @@ if (!$_SESSION) {
 }
 require_once "../classes/seance.php";
 $seance = new seance(0,0,0,0,0);
-$_SESSION['id'];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -21,6 +20,7 @@ $_SESSION['id'];
         body {
             background-color: #f8f9fa;
         }
+        
 
         .sidebar {
             min-height: 100vh;
@@ -61,8 +61,7 @@ $_SESSION['id'];
                 </ul>
             </div>
             <div class="col-md-9 col-lg-10 p-4">
-                <h2 class="mb-4">Bienvenue <?php echo htmlspecialchars($_SESSION["prenom"] . " " . $_SESSION["nom"]); ?></h2>
-              
+                <h2 class="mb-4">Bienvenue <?php echo $_SESSION["prenom"] . " " . $_SESSION["nom"]; ?></h2>
                 <div class="card shadow mb-5">
                     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Mes Séances</h5>
@@ -82,7 +81,7 @@ $_SESSION['id'];
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  <?php $seance->showDisponible(); ?>
+                                  <?php $seance->showDisponibleCoach(); ?>
                                 </tbody>
                             </table>
                         </div>
@@ -107,7 +106,6 @@ $_SESSION['id'];
                                     
                                     <?php 
                                     $seance->showReservee($_SESSION['id']);
-                                    echo $_SESSION['id'];
                                     ?>
                                 </tbody>
                             </table>
