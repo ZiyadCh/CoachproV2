@@ -9,5 +9,6 @@ http_response_code(404);
 </head>
 <body>
    <h1>PAge n'existe pas!</h1> 
+   <a href="/CoachproV2/pages/login.php">Retourner a login</a>
 </body>
 </html>
