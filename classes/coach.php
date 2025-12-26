@@ -11,6 +11,7 @@ class coach extends user
         $this->discipline = $discipline;
         $this->experience = $experience;
         $this->description = $description;
+    
     }
 
     //getters
