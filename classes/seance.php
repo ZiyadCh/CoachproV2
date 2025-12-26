@@ -44,6 +44,10 @@ class seance extends connection
         return $this->statut;
     }
     //setters
+ public function setid($id)
+    {
+        $this->id = $id;
+    }
     public function setCid($coach_id)
     {
         $this->coach_id = $coach_id;
@@ -103,17 +107,16 @@ class seance extends connection
         ]);
     }
     //supprimer
-    public function delete()
+    public function delete($id)
     {
         $pdo = $this->connect();
-
+        echo $id . "de";
         $sql = "delete from seances
-                where id = :id AND coach_id = :coach_id";
+                where id = :id";
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
-            ':id'       => $this->id,
-            ':coach_id' => $this->coach_id
+            ':id'       => $id,
         ]);
     }
 
@@ -137,9 +140,9 @@ class seance extends connection
                 <input type='hidden' name='seance_id' value=" . $d['id'] . ">
                 <button type='submit' id='reser'>Reserver</button>
                 </form>
-                <form action='../pages/supp.seance.php' method='POST'>
+                <form action='supp.seance.php' method='POST'>
                 <input type='hidden' name='seance_id' value=" . $d['id'] . ">
-                <button type='submit' id='supp'>Supprimer</button>
+                <button type='submit' name='' id='supp'>Supprimer</button>
                 </form> 
                 </td>
              </tr>";
