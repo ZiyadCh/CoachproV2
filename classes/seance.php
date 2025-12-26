@@ -86,7 +86,7 @@ class seance extends connection
         ]);
     }
     //modifier
-    public function modifier()
+    public function modifier($id)
     {
         $pdo = $this->connect();
 
@@ -94,12 +94,12 @@ class seance extends connection
                 set date_seance = :date,
                     heure = :heure,
                     duree = :duree,
-                    statut = :statut
-                where id = :id AND coach_id = :coach_id";
+                   statut = :statut
+                where id = :id ";
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
-            ':coach_id' => $this->coach_id,
+            ':id' => $this->$id,
             ':date'     => $this->date,
             ':heure'    => $this->heure,
             ':duree'    => $this->duree,
@@ -144,6 +144,11 @@ class seance extends connection
                 <input type='hidden' name='seance_id' value=" . $d['id'] . ">
                 <button type='submit' name='' id='supp'>Supprimer</button>
                 </form> 
+                </br>
+                <form action='mod.seance.php' method='POST'>
+                <input type='hidden' name='seance_id' value=" . $d['id'] . ">
+                <button type='submit' name='' id='mod'>Modifier</button>
+                </form>
                 </td>
              </tr>";
         }

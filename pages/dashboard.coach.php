@@ -74,10 +74,10 @@ $seance = new seance(0,0,0,0,0);
                             <table class="table table-hover align-middle">
                                 <thead class="table-primary">
                                     <tr>
+                                        <th>Coach</th>
                                         <th>Date</th>
                                         <th>Heure</th>
                                         <th>Durée</th>
-                                        <th>Statut</th>
                                     </tr>
                                 </thead>
                                 <tbody>

@@ -8,6 +8,7 @@ $user = new user(1,$_POST['nom'],$_POST['prenom'],$_POST['email'],'sportif',$_PO
 $userId= $user->insert();
 $sportif = new sportif();
 $sportif->insertId($userId);
+$_SESSION['id'] = $userId;
 header("location: ../pages/dashboard.sportif.php");
 ?>
 

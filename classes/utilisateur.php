@@ -137,6 +137,9 @@ class user extends connection
                 echo "not";
             }
         }
+        else {
+            echo "email n'existe pas";
+        }
     }
 
 }

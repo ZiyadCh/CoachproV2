@@ -8,7 +8,6 @@ if (!isset($_SESSION['id'])) {
 require_once "../classes/seance.php";
 
 $coach_id = $_SESSION['id'];
-
 $date   = $_POST['date'];
 $heure  = $_POST['heure'];
 $duree  = $_POST['duree'];
