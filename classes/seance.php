@@ -145,10 +145,7 @@ class seance extends connection
                 <button type='submit' name='' id='supp'>Supprimer</button>
                 </form> 
                 </br>
-                <form action='mod.seance.php' method='POST'>
-                <input type='hidden' name='seance_id' value=" . $d['id'] . ">
-                <button type='submit' name='' id='mod'>Modifier</button>
-                </form>
+                
                 </td>
              </tr>";
         }
